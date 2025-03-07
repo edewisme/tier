@@ -106,6 +106,29 @@ jobs:
         EOF
       env:
         AZURE_VM_USERNAME: ${{ secrets.AZURE_VM_USERNAME }}
-        AZURE_VM_IP: ${{ secrets.AZURE_VM_IP }}      
+        AZURE_VM_IP: ${{ secrets.AZURE_VM_IP }}   
+        
+  # Step 4: Pull the Backend Docker image
+    - name: Pull Backend Docker image
+      run: |
+        docker pull myorg/backend:latest  # Replace 'myorg/backend' with your image name
+
+    # Step 5: Pull the Frontend Docker image
+    - name: Pull Frontend Docker image
+      run: |
+        docker pull myorg/frontend:latest  # Replace 'myorg/frontend' with your image name  
+
+    # Optional: Run a container to verify that the image is working (for testing purposes)
+    - name: Run Backend container (optional)
+      run: |
+        docker run -d --name backend-container myorg/backend:latest
+        docker ps  # List running containers to verify the backend is running
+
+    - name: Run Frontend container (optional)
+      run: |
+        docker run -d --name frontend-container myorg/frontend:latest
+        docker ps  # List running containers to verify the frontend is running
+        
+   
               
         
